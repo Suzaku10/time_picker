@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:time_picker/time_picker.dart';
 
 void main() => runApp(MyApp());
@@ -12,34 +9,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  /* String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await TimePicker.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }*/
-
   FixedExtentScrollController _controller = FixedExtentScrollController();
   int tesdong = 0;
   double lerps = 0;
@@ -53,7 +22,6 @@ class _MyAppState extends State<MyApp> {
   void _scrollListener() {
     setState(() {
       lerps = (_controller.offset.round() % 35) / (35);
-      print("ini adalah lerps :${1 - lerps}");
     });
   }
 
@@ -61,13 +29,15 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(title: const Text('Plugin example app')), body: Container(height: 200, child: _coba())),
+          appBar: AppBar(title: const Text('Plugin example app')),
+          body: Container(
+              height: 200,
+              child: TimePicker(primaryColor: Colors.lightGreen, secondaryColor: Colors.black, fontSize: 24.0))),
     );
-  }
-
-  Widget _tst() {
-    return NumberPickerDialog.decimal(
-        minValue: 1, maxValue: 10, title: new Text("Pick a new price"), initialDoubleValue: 6);
+    /* return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(title: const Text('Plugin example app')), body: Container(height: 200, child: _coba())),
+    );*/
   }
 
   List<Widget> _children() {
@@ -77,7 +47,7 @@ class _MyAppState extends State<MyApp> {
               child: Text(index.toString()),
               style: tesdong == index
                   ? TextStyle(
-                      color: Color.lerp(Colors.lightGreen, Colors.black, lerps < 0.5 ? lerps : 1-lerps ),
+                      color: Color.lerp(Colors.lightGreen, Colors.black, lerps < 0.5 ? lerps : 1 - lerps),
                       fontWeight: FontWeight.w800,
                       fontSize: 24)
                   : TextStyle(color: Colors.black, fontSize: 15),
@@ -88,7 +58,7 @@ class _MyAppState extends State<MyApp> {
   Widget _coba() {
     return Stack(
       children: <Widget>[
-        Center(child: Container(constraints: BoxConstraints.expand(height: 35.0), color: Colors.blue)),
+//        Center(child: Container(constraints: BoxConstraints.expand(height: 35.0), color: Colors.blue)),
         Positioned.fill(
             child: ListWheelScrollView.useDelegate(
                 controller: _controller,
@@ -99,35 +69,44 @@ class _MyAppState extends State<MyApp> {
                 onSelectedItemChanged: ((tes) {
                   tesdong = tes;
                 }),
-//          useMagnifier: true,
-//          magnification: 2.0,
-//            perspective: 0.0099,
-                childDelegate: ListWheelChildLoopingListDelegate(children: _children())))
+                childDelegate: ListWheelChildLoopingListDelegate(children: _children()))),
+        _buildGradientScreen()
       ],
     );
   }
 
-/*  Widget _coba() {
-    return Stack(
-      children: <Widget>[
-        Center(child: Container(constraints: BoxConstraints.expand(height: 35.0), color: Colors.blue)),
-        Positioned.fill(
-            child: ListView(
-              cacheExtent: 35.0,
-          children: List.generate(24, (index) {
-            return Center(
-                child: AnimatedDefaultTextStyle(
-                    child: Text(index.toString(),
-                       */ /* style: tesdong == index
-                            ? TextStyle(color: Colors.lightGreen, fontWeight: FontWeight.w800, fontSize: 20)
-                            : TextStyle(color: Colors.black)*/ /*),
-                    style: tesdong == index
-                        ? TextStyle(color: Colors.lightGreen, fontWeight: FontWeight.w800, fontSize: 20)
-                        : TextStyle(color: Colors.black),
-                    duration: Duration(milliseconds: 200)));
-          }),
-        ))
-      ],
+  Widget _buildGradientScreen() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: const LinearGradient(
+              colors: const <Color>[
+                const Color(0xFFFFFFFF),
+                const Color(0xF2FFFFFF),
+                const Color(0xDDFFFFFF),
+                const Color(0x00FFFFFF),
+                const Color(0x00FFFFFF),
+                const Color(0xDDFFFFFF),
+                const Color(0xF2FFFFFF),
+                const Color(0xFFFFFFFF),
+              ],
+              stops: const <double>[
+                0.0,
+                0.05,
+                0.09,
+                0.22,
+                0.78,
+                0.91,
+                0.95,
+                1.0,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+      ),
     );
-  }*/
+  }
 }
