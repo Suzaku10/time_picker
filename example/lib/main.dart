@@ -52,8 +52,8 @@ class _MyAppState extends State<MyApp> {
 
   void _scrollListener() {
     setState(() {
-      print((_controller.offset.round() % 35) / (35));
       lerps = (_controller.offset.round() % 35) / (35);
+      print("ini adalah lerps :${1 - lerps}");
     });
   }
 
@@ -61,20 +61,28 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: Container(height: 200, child: _coba())),
+          appBar: AppBar(title: const Text('Plugin example app')), body: Container(height: 200, child: _coba())),
     );
   }
 
   Widget _tst() {
     return NumberPickerDialog.decimal(
-      minValue: 1,
-      maxValue: 10,
-      title: new Text("Pick a new price"),
-      initialDoubleValue: 6,
-    );
+        minValue: 1, maxValue: 10, title: new Text("Pick a new price"), initialDoubleValue: 6);
+  }
+
+  List<Widget> _children() {
+    return List.generate(24, (index) {
+      return Center(
+          child: AnimatedDefaultTextStyle(
+              child: Text(index.toString()),
+              style: tesdong == index
+                  ? TextStyle(
+                      color: Color.lerp(Colors.lightGreen, Colors.black, lerps < 0.5 ? lerps : 1-lerps ),
+                      fontWeight: FontWeight.w800,
+                      fontSize: 24)
+                  : TextStyle(color: Colors.black, fontSize: 15),
+              duration: Duration(milliseconds: 100)));
+    });
   }
 
   Widget _coba() {
@@ -94,19 +102,7 @@ class _MyAppState extends State<MyApp> {
 //          useMagnifier: true,
 //          magnification: 2.0,
 //            perspective: 0.0099,
-                childDelegate: ListWheelChildLoopingListDelegate(
-                    children: List.generate(24, (index) {
-                  return Center(
-                      child: AnimatedDefaultTextStyle(
-                          child: Text(index.toString()),
-                          style: tesdong == index
-                              ? TextStyle(
-                                  color: Color.lerp(Colors.lightGreen, Colors.black, lerps),
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 24)
-                              : TextStyle(color: Colors.yellow, fontSize: 10),
-                          duration: Duration(milliseconds: 500)));
-                }))))
+                childDelegate: ListWheelChildLoopingListDelegate(children: _children())))
       ],
     );
   }
