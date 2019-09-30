@@ -6,10 +6,17 @@ class ScrollableTimePicker extends StatefulWidget {
   final double fontSize;
   final Color selectedColor;
   final Color nonSelectedColor;
-  final List<String> dataList;
+  final List<int> dataList;
+  final Function(int result) callback;
 
   const ScrollableTimePicker(
-      {Key key, this.controller, this.fontSize, this.selectedColor, this.nonSelectedColor, this.dataList})
+      {Key key,
+      this.controller,
+      this.fontSize,
+      this.selectedColor,
+      this.nonSelectedColor,
+      this.dataList,
+      this.callback})
       : super(key: key);
 
   @override
@@ -40,7 +47,7 @@ class _ScrollableTimePickerState extends State<ScrollableTimePicker> {
           Center(child: Container(constraints: BoxConstraints.expand(height: _itemExtent + 100, width: _itemExtent))),
         Positioned.fill(
             child: Container(
-              height: 200,
+              height: 100,
               child: ListWheelScrollView.useDelegate(
                   controller: widget.controller,
                   itemExtent: _itemExtent,
@@ -49,6 +56,7 @@ class _ScrollableTimePickerState extends State<ScrollableTimePicker> {
                   physics: const FixedExtentScrollPhysics(),
                   onSelectedItemChanged: ((selected) {
                     _result = selected;
+                    widget.callback(widget.dataList[_result]);
                   }),
                   childDelegate: ListWheelChildLoopingListDelegate(children: _children(widget.dataList))),
             )),
@@ -57,11 +65,11 @@ class _ScrollableTimePickerState extends State<ScrollableTimePicker> {
     );
   }
 
-  List<Widget> _children(List<String> list) {
+  List<Widget> _children(List<int> list) {
     return List.generate(list.length, (index) {
       return Center(
           child: AnimatedDefaultTextStyle(
-              child: Text(list[index]),
+              child: Text(list[index].toString().padLeft(2, "0")),
               style: _result == index
                   ? TextStyle(
                       color: Color.lerp(widget.selectedColor, widget.nonSelectedColor, lerps < 0.5 ? lerps : 1 - lerps),

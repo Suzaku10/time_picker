@@ -9,6 +9,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  DateTime results;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,17 +18,18 @@ class _MyAppState extends State<MyApp> {
             appBar: AppBar(title: const Text('Plugin example app')),
             body: Container(
                 height: 100,
-                child: Builder(builder: (context){
+                child: Builder(builder: (context) {
                   return FlatButton(
                       onPressed: () async {
                         var result = await TimePicker.pickTime(context,
                             selectedColor: Colors.lightGreen,
                             nonSelectedColor: Colors.black,
-                            fontSize: 24.0,
-                            timePickType: TimePickType.hourAndMinute,
-                            isTwelveHourFormat: true);
+                            displayType: DisplayType.bottomSheet,
+                            fontSize: 24.0, callback: (time) {
+                          results = time;
+                        }, timePickType: TimePickType.completed, isTwelveHourFormat: true);
                       },
-                      child: Text("Klick"));
+                      child: Text("Klik"));
                 }))));
     /* return MaterialApp(
       home: Scaffold(
