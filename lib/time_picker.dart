@@ -302,22 +302,6 @@ class _TimePickerPageState extends State<TimePickerPage> {
                 fillColor: ampm == "PM" ? widget.selectedColor : null,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Text('PM', style: TextStyle(fontSize: widget.fontSize))),
-            /*   FlatButton(
-                onPressed: () {
-                  setState(() {
-                    ampm = "AM";
-                  });
-                },
-                child: Text("AM"),
-                color: ampm == "AM" ? widget.selectedColor : null),
-            FlatButton(
-                onPressed: () {
-                  setState(() {
-                    ampm = "PM";
-                  });
-                },
-                child: Text("PM"),
-                color: ampm == "PM" ? widget.selectedColor : null),*/
           ],
         ),
         margin: EdgeInsets.symmetric(horizontal: 16.0));

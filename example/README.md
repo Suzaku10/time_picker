@@ -1,16 +1,54 @@
-# time_picker_example
+# simpletime_picker
+```
+import 'package:flutter/material.dart';
+import 'package:time_picker/time_picker.dart';
 
-Demonstrates how to use the time_picker plugin.
+void main() => runApp(MyApp());
 
-## Getting Started
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('Plugin example app')),
+            body: Container(child: Builder(builder: (context) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FlatButton(
+                      onPressed: () async {
+                        var result = await TimePicker.pickTime(context,
+                            selectedColor: Colors.amber,
+                            nonSelectedColor: Colors.black,
+                            displayType: DisplayType.bottomSheet,
+                            timePickType: TimePickType.hourMinute,
+                            buttonBackgroundColor: Colors.red,
+                            title: "this is bottomsheet",
+                            fontSize: 24.0,
+                            isTwelveHourFormat: true);
+                        print("ini apa ? $result");
+                      },
+                      child: Text("show bottomsheet")),
+                  FlatButton(
+                      onPressed: () async {
+                        var result = await TimePicker.pickTime(context,
+                            selectedColor: Colors.amber,
+                            nonSelectedColor: Colors.black,
+                            displayType: DisplayType.dialog,
+                            timePickType: TimePickType.hourMinuteSecond,
+                            fontSize: 30.0,
+                            isTwelveHourFormat: true);
+                        print("ini ? $result");
+                      },
+                      child: Text("show dialog"))
+                ],
+              );
+            }))));
+  }
+}
+```

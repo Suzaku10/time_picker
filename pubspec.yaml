@@ -1,8 +1,8 @@
-name: time_picker
-description: A new Flutter plugin.
-version: 0.0.1
-author:
-homepage:
+name: simpletime_picker
+description:
+version: 0.1.0
+author: Yudistira Yoga <yudhistiray198@gmail.com>
+homepage: https://github.com/Suzaku10/time_picker.git
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,9 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  intl: ^0.15.8
 
 dev_dependencies:
   flutter_test:
