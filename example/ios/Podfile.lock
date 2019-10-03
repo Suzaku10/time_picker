@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - time_picker (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios`)
+  - time_picker (from `.symlinks/plugins/time_picker/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  time_picker:
+    :path: ".symlinks/plugins/time_picker/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  time_picker: ffe8ba003d1a9ad5480e7c6d49770af14e7c21da
+
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
+
+COCOAPODS: 1.5.3

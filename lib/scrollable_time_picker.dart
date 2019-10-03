@@ -42,13 +42,18 @@ class _ScrollableTimePickerState extends State<ScrollableTimePicker> {
   }
 
   Widget _buildScrollable() {
-    return Stack(
-      children: <Widget>[
-          Center(child: Container(constraints: BoxConstraints.expand(height: _itemExtent + 100, width: _itemExtent))),
-        Positioned.fill(
-            child: Container(
-              height: 100,
-              child: ListWheelScrollView.useDelegate(
+    return Container(
+        constraints: BoxConstraints.expand(height: _itemExtent * 4, width: _itemExtent),
+        child: ShaderMask(
+            shaderCallback: (rect) {
+              return LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.transparent, Colors.black, Colors.transparent],
+              ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+            },
+            blendMode: BlendMode.dstIn,
+            child: ListWheelScrollView.useDelegate(
                   controller: widget.controller,
                   itemExtent: _itemExtent,
                   diameterRatio: 1.2,
@@ -59,10 +64,7 @@ class _ScrollableTimePickerState extends State<ScrollableTimePicker> {
                     widget.callback(widget.dataList[_result]);
                   }),
                   childDelegate: ListWheelChildLoopingListDelegate(children: _children(widget.dataList))),
-            )),
-        Constant.buildGradientScreen()
-      ],
-    );
+            ));
   }
 
   List<Widget> _children(List<int> list) {

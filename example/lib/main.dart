@@ -9,31 +9,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime results;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(title: const Text('Plugin example app')),
-            body: Container(
-                height: 100,
-                child: Builder(builder: (context) {
-                  return FlatButton(
+            body: Container(child: Builder(builder: (context) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FlatButton(
                       onPressed: () async {
                         var result = await TimePicker.pickTime(context,
-                            selectedColor: Colors.lightGreen,
+                            selectedColor: Colors.amber,
                             nonSelectedColor: Colors.black,
                             displayType: DisplayType.bottomSheet,
-                            fontSize: 24.0, callback: (time) {
-                          results = time;
-                        }, timePickType: TimePickType.completed, isTwelveHourFormat: true);
+                            timePickType: TimePickType.hourMinute,
+                            buttonBackgroundColor: Colors.red,
+                            title: "this is bottomsheet",
+                            fontSize: 24.0,
+                            isTwelveHourFormat: true);
+                        print("ini apa ? $result");
                       },
-                      child: Text("Klik"));
-                }))));
-    /* return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(title: const Text('Plugin example app')), body: Container(height: 200, child: _coba())),
-    );*/
+                      child: Text("show bottomsheet")),
+                  FlatButton(
+                      onPressed: () async {
+                        var result = await TimePicker.pickTime(context,
+                            selectedColor: Colors.amber,
+                            nonSelectedColor: Colors.black,
+                            displayType: DisplayType.dialog,
+                            timePickType: TimePickType.hourMinuteSecond,
+                            fontSize: 30.0,
+                            isTwelveHourFormat: true);
+                        print("ini ? $result");
+                      },
+                      child: Text("show dialog"))
+                ],
+              );
+            }))));
   }
 }
