@@ -7,7 +7,7 @@
 First, add `simpletime_picker` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 ```
-simpletime_picker: ^0.1.0
+simpletime_picker: ^0.1.0+1
 ```
 
 ## Example

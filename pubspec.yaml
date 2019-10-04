@@ -1,7 +1,9 @@
 name: simpletime_picker
 description: this is simple time picker dialog or bottomsheet with 12/24 hour format
-version: 0.1.0
-author: Yudistira Yoga <yudhistiray198@gmail.com>
+version: 0.1.0+1
+author:
+- Yudistira Yoga <yudhistiray198@gmail.com>
+- Reno Rizky <reno.rizky.ollantino@gmail.com>
 homepage: https://github.com/Suzaku10/time_picker.git
 
 environment:
